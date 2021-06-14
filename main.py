@@ -4,7 +4,15 @@ from sudachipy import tokenizer
 from sudachipy import dictionary
 tokenizer_obj = dictionary.Dictionary().create()
 mode = tokenizer.Tokenizer.SplitMode.B
-kana_simbols = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ｡｢ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ$゙$゚ ゙ ゚ゝゞゟ"
+exept_simbols = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ｡｢ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ$゙$゚ ゙ ゚ゝゞゟAaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz-123456789"
+
+
+def migaku_question(migaku_input):
+    if migaku_input == "y":
+        return migaku_input
+    elif migaku_input == "n":
+        return migaku_input
+    return None
 
 
 def furigana_question(furigana_input):
@@ -36,6 +44,16 @@ while True:
         print(
             f"Something wrong with your file or file path: \n{e}\n Lets try inputing path one more time")
 
+
+while (foo := migaku_question(input('If you have [] brakets from migaku you should probably delete them - delete migaku brakets? Print "y" for yes or "n" for no into the console:'))) == None:
+    print("Invalid input, lets try once again: ")
+else:
+    if foo == "y":
+        delete_migaku = True
+    else:
+        delete_migaku = False
+
+
 deck_splitted = deck.split('\n')
 print("This is the deck splitted by new lines:\n")
 print(deck_splitted)
@@ -66,7 +84,7 @@ for word in words_list:
     print(f"The word being processed is: {word}")
     for kanji in word:
         print(f"The kanji being processed is: {kanji}")
-        if kanji not in kana_simbols:
+        if kanji not in exept_simbols:
             kanji_dict[kanji] = []
             print(f"Kanji dict was updated with {kanji} and equals to:")
             # print(kanji_dict)
@@ -84,6 +102,18 @@ for kanji_key, words_values in kanji_dict.items():
             m = tokenizer_obj.tokenize(word, mode)[0]
             kanji_dict[kanji_key].append(f"{word}({m.reading_form()})")
 
-for kk, wv in kanji_dict.items():
-    print(f"{kk}: {wv}.\n")
-# print(kanji_dict)
+sorted_kanji_dict = sorted(kanji_dict.items(), key=lambda pair: len(pair[1]), reverse=True)
+
+# for kk, wv in kanji_dict.items():
+#     print(f"{kk}: {wv}.\n")
+
+for x in sorted_kanji_dict:
+    print(f"{x}\n")
+
+with open(path_to_deck, mode='r', encoding='utf-8') as f:
+    deck = f.read()
+    print("This is the deck from the file:\n" + deck)
+break
+except Exception as e:
+print(
+    f"Something wrong with your file or file path: \n{e}\n Lets try inputing path one more time")

@@ -98,13 +98,30 @@ def furigana_question1():
 #
 # print(furigana)
 
-while True:
-    path_to_deck = input("Plese input path to the deck file: ")
-    try:
-        # path_to_deck = "Collection/AnkiConnectCards.txt"
-        with open(path_to_deck, mode='r', encoding='utf-8') as f:
-            deck = f.read()
-            print("This is the deck from the file:\n" + deck)
-        break
-    except Exception as e:
-        print(f"Something wrong with your file or file path: \n{e}\n try one again")
+# while True:
+#     path_to_deck = input("Plese input path to the deck file: ")
+#     try:
+#         # path_to_deck = "Collection/AnkiConnectCards.txt"
+#         with open(path_to_deck, mode='r', encoding='utf-8') as f:
+#             deck = f.read()
+#             print("This is the deck from the file:\n" + deck)
+#         break
+#     except Exception as e:
+#         print(f"Something wrong with your file or file path: \n{e}\n try one again")
+
+
+dict_of_chars = {'Char1': ['Word1', 'Word2'],
+                 'Char2': ['Word3', 'Word4', 'Word5'],
+                 'Char3': ['Word6']}
+# Dict = {1: 'Geeks', 2: 'For', 3: 'Geeks'}
+# kanjidic = {'減': ['いい加減 に しろ(イイ)', '減少(ゲンショウ)', '減る(ヘル)', '手加減(テカゲン)', '腹 減った(ハラ)', '減給(ゲンキュウ)'], '祝': ['お祝い(オイワイ)', '祝す(シュクス)', '祝福(シュクフク)'], '節': ['お節介(オセッカイ)'], '菓': ['お菓子(オカシ)'], '袋': ['お袋(オフクロ)', '寝袋(ネブクロ)', '袋(フクロ)', '胃袋(イブクロ)'], '預': ['お預け(オ)', '預かる(アズカル)'], '存': ['ご存じ(ゴゾンジ)', '存外(ゾンガイ)', '生存(セイゾン)', '存続(ソンゾク)', '依存(イゾン)'], '恩': ['ご恩(ゴ)'], '覧': ['ご覧 に なる(ゴラン)'], '足': ['し 足りない(シ)', '足止め(アシドメ)', '満足(マンゾク)', '手 とり 足取り(テ)', '不足(フソク)', '足場(アシバ)', '足手まとい(アシデ)', '足掻く(アガク)'], '切': ['すり 切れる(スリ)', '切れ味(キレアジ)', '切り刻む(キリキザム)', '裏切り者(ウラギリ)', '吹っ切る(フッキル)', '切っ掛け(キッカケ)', '締め切り(シメキリ)', '割り切れる(ワリキレル)', '仕切る(シキル)', '押し切る(オシキル)', '飛び切り(トビキリ)', '切り口(キリクチ)', '途切れる(トギレル)', '切り出す(キリダス)', '一切(イッサイ)', '親切(シンセツ)', '数え切れない(カゾエ)', '見切り(ミキリ)'], '道': ['どの道(ドノミチ)', '柔道(ジュウドウ)', '道のり(ミチノリ)', '書道(ショドウ)', '道案内(ミチアンナイ)', '地道(ジミチ)', '軌道(キドウ)', '抜け道(ヌケミチ)'], '於': ['に 於ける(ニ)'],
+
+# sorted_dict_of_chars = dict(sorted(dict_of_chars.items(), key=lambda k: len(dict_of_chars[k])))
+# for k, v in sorted_dict_of_chars.items():
+#     print(f"{k}: {v}.\n")
+
+# for k, v in sorted(dict_of_chars.items(), key=lambda pair: len(pair[1])):
+#     print(f"{k}:{v}")
+
+sorted_dict = sorted(dict_of_chars.items(), key=lambda pair: len(pair[1]), reverse=True)
+print(sorted_dict)

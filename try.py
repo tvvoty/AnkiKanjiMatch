@@ -53,3 +53,58 @@ m.part_of_speech()  # => ['動詞', '一般', '*', '*', '下一段-バ行', '連
 # print("<ruby><rb>{0}</rb><rt>{1}</rt></ruby>".
 # print_html('澱んだ街角で僕らは出会った')
 # {食べ}(たべ)
+
+
+def furigana_question1():
+    furigana_input = input(
+        'Do you want to have furigana for kanji? Print "y" for yes or "n" for no into the console: ')
+    if furigana_input == "y":
+        print("True")
+        return (furigana_input)
+    elif furigana_input == "n":
+        print("False")
+        return (furigana_input)
+    else:
+        print("invalid input")
+        return furigana_question()
+
+
+# furigana_input = furigana_question()
+# print(furigana_input)
+
+
+# if furigana_input == "y":
+#     print("True")
+# elif furigana_input == "n":
+#     print("False")
+# else:
+#     print("Error")
+
+# def furigana_question(furigana_input):
+#     if furigana_input == "y":
+#         return furigana_input
+#     elif furigana_input == "n":
+#         return furigana_input
+#     return None
+#
+#
+# while (foo := furigana_question(input('Do you want to have furigana for kanji? Print "y" for yes or "n" for no into the console: '))) == None:
+#     print("Invalid input, lets try once again: ")
+# else:
+#     if foo == "y":
+#         furigana = True
+#     else:
+#         furigana = False
+#
+# print(furigana)
+
+while True:
+    path_to_deck = input("Plese input path to the deck file: ")
+    try:
+        # path_to_deck = "Collection/AnkiConnectCards.txt"
+        with open(path_to_deck, mode='r', encoding='utf-8') as f:
+            deck = f.read()
+            print("This is the deck from the file:\n" + deck)
+        break
+    except Exception as e:
+        print(f"Something wrong with your file or file path: \n{e}\n try one again")

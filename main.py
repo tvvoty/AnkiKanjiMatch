@@ -1,16 +1,40 @@
 import re
+import os
 from sudachipy import tokenizer
 from sudachipy import dictionary
 tokenizer_obj = dictionary.Dictionary().create()
 mode = tokenizer.Tokenizer.SplitMode.B
+kana_simbols = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ｡｢ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ$゙$゚ ゙ ゚ゝゞゟ"
 
 
-kana = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ｡｢ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ$゙$゚ ゙ ゚ゝゞゟ"
+def furigana_question(furigana_input):
+    if furigana_input == "y":
+        return furigana_input
+    elif furigana_input == "n":
+        return furigana_input
+    return None
 
 
-with open("Collection/AnkiConnectCards.txt", mode='r', encoding='utf-8') as f:
-    deck = f.read()
-    print("This is the deck from the file:\n" + deck)
+while (foo := furigana_question(input('Do you want to have furigana for kanji? Print "y" for yes or "n" for no into the console: '))) == None:
+    print("Invalid input, lets try once again: ")
+else:
+    if foo == "y":
+        furigana = True
+    else:
+        furigana = False
+
+
+while True:
+    path_to_deck = input("Plese input path to the deck file: ")
+    try:
+        # path_to_deck = "Collection/Old/AnkiConnect.txt"
+        with open(path_to_deck, mode='r', encoding='utf-8') as f:
+            deck = f.read()
+            print("This is the deck from the file:\n" + deck)
+        break
+    except Exception as e:
+        print(
+            f"Something wrong with your file or file path: \n{e}\n Lets try inputing path one more time")
 
 deck_splitted = deck.split('\n')
 print("This is the deck splitted by new lines:\n")
@@ -42,7 +66,7 @@ for word in words_list:
     print(f"The word being processed is: {word}")
     for kanji in word:
         print(f"The kanji being processed is: {kanji}")
-        if kanji not in kana:
+        if kanji not in kana_simbols:
             kanji_dict[kanji] = []
             print(f"Kanji dict was updated with {kanji} and equals to:")
             # print(kanji_dict)
